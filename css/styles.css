@@ -11,6 +11,7 @@
   --primary-color-text: #757575;
   --contacts-color: rgba(255, 255, 255, 0.6);
   --icon-color: #afb1b8;
+  --transition-duration-and-func: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 body {
   font-family: var(--primary-font);
@@ -46,6 +47,8 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 4px;
+  transition: color var(--transition-duration-and-func),
+    background-color var(--transition-duration-and-func);
 }
 button:hover,
 button:focus {
@@ -85,73 +88,6 @@ button:focus {
   line-height: 1.19;
   color: #000000;
 }
-.studio-footer {
-  color: var(--accent-text-color);
-}
-
-.call {
-  font-style: normal;
-  color: var(--contacts-color);
-}
-.address {
-  background-color: var(--secondary-bg-color);
-  padding: 60px 0;
-}
-.footer-link {
-  font-weight: 400;
-  line-height: 1.71;
-  letter-spacing: 0.02em;
-}
-.footer-link:hover,
-.footer-link:focus {
-  color: var(--accent-color);
-}
-.location {
-  color: var(--accent-text-color);
-}
-.address-list {
-  margin-top: 20px;
-}
-.address-item:not(:last-child) {
-  margin-bottom: 9px;
-}
-.address .container {
-  display: flex;
-  align-items: baseline;
-}
-.footer-container:not(:last-child) {
-  margin-right: 70px;
-}
-.join {
-  font-weight: 700;
-  line-height: 1.14;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-
-  color: #ffffff;
-}
-.footer-social-list {
-  display: flex;
-  gap: 10px;
-}
-.footer-social-list-link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.footer-social-list-link:hover,
-.footer-social-list-link:focus {
-  background-color: var(--accent-color);
-}
-.footer-social-list-icon {
-  fill: currentColor;
-}
 /* ================/COMPONENT================ */
 
 /* ================ШАПКА СТРАНИЦЫ================ */
@@ -179,11 +115,13 @@ button:focus {
 }
 
 .navigation-link {
+  position: relative;
   font-weight: 500;
   line-height: 1.14;
   letter-spacing: 0.02em;
   color: var(--primary-color-article);
   padding: 32px 0;
+  transition: color var(--transition-duration-and-func);
 
   display: flex;
   flex-direction: row-reverse;
@@ -214,6 +152,15 @@ button:focus {
 }
 .current {
   color: var(--accent-color);
+}
+.current::after {
+  position: absolute;
+  bottom: 0;
+  content: '';
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--accent-color);
 }
 /* ================/ШАПКА СТРАНИЦЫ================ */
 
@@ -326,8 +273,27 @@ button:focus {
   margin-bottom: 50px;
   color: var(--primary-color-article);
 }
+
 .business-list-item:not(:last-child) {
   margin-right: 30px;
+}
+.business-overlay {
+  position: relative;
+}
+.business-list-text {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  font-weight: 700;
+  line-height: 1.14;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding-top: 27px;
+  padding-bottom: 27px;
+
+  color: #ffffff;
+  background-color: rgba(47, 48, 58, 0.8);
 }
 /*==========/BUSINESS==========  */
 
@@ -393,6 +359,8 @@ button:focus {
   height: 44px;
   border-radius: 50%;
   color: var(--icon-color);
+  transition: color var(--transition-duration-and-func),
+    background-color var(--transition-duration-and-func);
 }
 .social-list-link:hover,
 .social-list-link:focus {
@@ -430,7 +398,10 @@ button:focus {
   border: 1px solid #afb1b8;
   border-radius: 4px;
   color: var(--icon-color);
+  transition: color var(--transition-duration-and-func),
+    background-color var(--transition-duration-and-func);
 }
+
 .clients-list-icon {
   fill: currentColor;
 }
@@ -474,13 +445,18 @@ button:focus {
   line-height: 1.63;
   text-align: center;
   padding: 6px 22px;
+  transition: color var(--transition-duration-and-func),
+    background-color var(--transition-duration-and-func),
+    box-shadow var(--transition-duration-and-func);
 
   background-color: var(--third-bg-color);
 }
 .portfolio-btn:hover,
 .portfolio-btn:focus {
+  background-color: var(--accent-color);
   box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
     0px 2px 2px rgba(0, 0, 0, 0.12);
+  color: var(--accent-text-color);
 }
 .projects {
   display: flex;
@@ -495,17 +471,169 @@ button:focus {
 }
 .projects-link {
   display: block;
+  transition: box-shadow var(--transition-duration-and-func);
 }
 .projects-link:hover,
 .projects-link:focus {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
 }
-
 .projects-item:not(:nth-child(3n)) {
   margin-right: 30px;
 }
 .projects-item:not(:nth-last-child(-n + 3)) {
   margin-bottom: 30px;
 }
+.projects-link:hover .portfolio-overlay-text,
+.projects-link:focus .portfolio-overlay-text {
+  transform: translate(0, 0);
+}
+.portfolio-overlay {
+  position: relative;
+  overflow: hidden;
+}
+.portfolio-overlay-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  transform: translate(0, 100%);
+  transition: transform var(--transition-duration-and-func);
+
+  font-size: 18px;
+  line-height: 1.56;
+  letter-spacing: 0.03em;
+  padding: 63px 24px;
+
+  color: #ffffff;
+  background-color: rgba(33, 150, 243, 0.9);
+}
 /* ======================================/ПОРТФОЛИО====================================== */
+
+/* ======================================ФУТЕР====================================== */
+.studio-footer {
+  color: var(--accent-text-color);
+}
+
+.call {
+  font-style: normal;
+  color: var(--contacts-color);
+}
+.address {
+  background-color: var(--secondary-bg-color);
+  padding: 60px 0;
+}
+.footer-link {
+  font-weight: 400;
+  line-height: 1.71;
+  letter-spacing: 0.02em;
+  transition: color var(--transition-duration-and-func);
+}
+.footer-link:hover,
+.footer-link:focus {
+  color: var(--accent-color);
+}
+.location {
+  color: var(--accent-text-color);
+}
+.address-list {
+  margin-top: 20px;
+}
+.address-item:not(:last-child) {
+  margin-bottom: 9px;
+}
+.address .container {
+  display: flex;
+  align-items: baseline;
+}
+.footer-container:not(:last-child) {
+  margin-right: 70px;
+}
+.join {
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+
+  color: #ffffff;
+}
+.footer-social-list {
+  display: flex;
+  gap: 10px;
+}
+.footer-social-list-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color var(--transition-duration-and-func);
+}
+.footer-social-list-link:hover,
+.footer-social-list-link:focus {
+  background-color: var(--accent-color);
+}
+.footer-social-list-icon {
+  fill: currentColor;
+}
+/* ======================================/ФУТЕР====================================== */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: opacity var(--transition-duration-and-func),
+    visibility var(--transition-duration-and-func);
+}
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 528px;
+  height: 581px;
+  background-color: #ffffff;
+}
+.modal-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  transition: background-color var(--transition-duration-and-func),
+    border-color var(--transition-duration-and-func);
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+  background-color: transparent;
+  border-color: var(--accent-color);
+}
+.modal-close-btn-icon {
+  transition: fill var(--transition-duration-and-func);
+}
+.modal-close-btn:hover .modal-close-btn-icon,
+.modal-close-btn:focus .modal-close-btn-icon {
+  fill: var(--accent-color);
+}
+
+/* ======================================MODAL WINDOW====================================== */ ;
